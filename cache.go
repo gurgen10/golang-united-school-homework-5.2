@@ -46,7 +46,7 @@ func (c *Cache) Put(key, value string) {
 func (c *Cache) Keys() []string {
 	var keys []string
 	for k := range c.data {
-		if c.deadline[k].After(time.Now()) {
+		if c.deadline[k].IsZero() || c.deadline[k].After(time.Now()) {
 			keys = append(keys, k)
 		}
 	}
